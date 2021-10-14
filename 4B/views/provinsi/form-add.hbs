@@ -1,0 +1,52 @@
+{{> head}}
+
+<div class="container text center my-5 d-flex justify-content-center">
+
+  <div class="card shadow text-dark bg-light mb-3" style="width: 30rem;">
+    <div class="card-header d-flex justify-content-between">
+      {{title}}
+      <span><a class="link-dark" href="/"><i class="fas fa-times"></i></a></span>
+    </div>
+    <div class="card-body">
+
+      <form action="/provinsi/add" method="POST" enctype="multipart/form-data">
+
+        <div class="file-input-group text-start">
+          <input type="file" hidden id="file" aria-label="file upload" name="image" onchange="handleChange()">
+          <label for="file">Attach Thumbnail <img src="/static/icons/attach.svg" alt=""></label>
+        </div>
+        <div id="preview-thumbnail" class="text-start"></div>
+
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="nama" name="nama" placeholder="example">
+          <label for="nama">Nama</label>
+        </div>
+
+        <div class="form-floating mb-3">
+          <input type="date" class="form-control" id="diresmikan" name="diresmikan" placeholder="example">
+          <label for="diresmikan">Diresmikan</label>
+        </div>
+
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="pulau" name="pulau" placeholder="example">
+          <label for="pulau">Pulau</label>
+        </div>
+
+        <button type="submit" class="btn btn-dark">Submit</button>
+
+      </form>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function handleChange() {
+    const previewElement = document.getElementById("preview-thumbnail")
+    const value = URL.createObjectURL(event.target.files[0])
+    previewElement.innerHTML = `<img src=${value} style="width: 250px;" class="mb-3">`
+  }
+</script>
+
+{{>footer}}

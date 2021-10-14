@@ -1,0 +1,41 @@
+{{>head}}
+
+<div class="container wilayah py-4">
+  <div class="px-5">
+    <h3><strong>{{title}}</strong></h3>
+    <hr>
+    <div class="card mb-3" style="max-width: 100%;">
+      <div class="row g-0">
+        <div class="col-md-4">
+          <img src="{{provinsi.image}}" class="img-fluid rounded-start" alt="provinsi image" style="height: 100%;">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h2 class="card-title mb-2">{{provinsi.nama}}</h2>
+            <p class="card-text"><small class="text-muted">Diresmikan : {{provinsi.diresmikanDate}}</small></p>
+            <p class="card-text"><small class="text-muted">Pulau : {{provinsi.pulau}}</small></p>
+            <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi laudantium tempore fuga cum accusamus mollitia accusantium eveniet omnis! Ab consequatur eos, quidem itaque tempore accusantium vel facere laboriosam nesciunt explicabo!.</p>
+            <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi laudantium tempore fuga cum accusamus mollitia accusantium eveniet omnis! Ab consequatur eos, quidem itaque tempore accusantium vel facere laboriosam nesciunt explicabo!.</p>
+            <a href="/" class="btn btn-secondary px-3">
+              <span><i class="fas fa-arrow-circle-left"></i></span>
+                Back
+            </a>
+            <a href="/provinsi/edit/{{provinsi.id}}" class="btn btn-warning text-white px-4">
+              <span>
+                <i class="fas fa-edit"></i>
+              </span>
+                Edit
+            </a>
+            <a href="/provinsi/delete/{{provinsi.id}}" class="btn btn-danger">
+              <span><i class="fas fa-trash"></i></span>
+                Delete
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{{>footer}}
