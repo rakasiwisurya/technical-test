@@ -1,9 +1,9 @@
-function squarePattern(input) {
+function drawImage(input) {
   let string = "";
 
   for (let i = 1; i <= input; i++) {
     // * (column)
-    let mid = Math.floor((input + 1) / 2); // * (column)
+    let mid = Math.floor((input + 1) / 2);
 
     for (let j = 1; j <= input; j++) {
       // * (row)
@@ -32,4 +32,4 @@ function squarePattern(input) {
   console.log(string);
 }
 
-squarePattern(5);
+drawImage(5);
