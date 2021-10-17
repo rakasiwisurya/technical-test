@@ -7,25 +7,52 @@ const uploadFile = require("../middlewares/uploadFile");
 const pathFile = "http://localhost:3000/uploads/";
 
 router.get("/add", function (req, res) {
-  res.render("kabupaten/form-add", {
-    title: "Add Kabupaten",
+  const query =
+    "SELECT kabupaten_tb.provinsi_id AS provinsiId, provinsi_tb.nama AS provinsiNama FROM kabupaten_tb INNER JOIN provinsi_tb ON provinsi_tb.id = kabupaten_tb.provinsi_id";
+
+  dbConnection.getConnection((err, conn) => {
+    if (err) throw err;
+
+    conn.query(query, (err, results) => {
+      if (err) throw err;
+
+      const provinsis = {
+        ...results,
+      };
+
+      res.render("kabupaten/form-add", {
+        title: "Add Kabupaten",
+        provinsis,
+      });
+    });
+    conn.release();
   });
 });
 
 router.get("/edit/:id", function (req, res) {
   const { id } = req.params;
 
-  const query = "SELECT * FROM kabupaten_tb WHERE id = ?";
+  const query =
+    "SELECT kabupaten_tb.*, provinsi_tb.id AS provinsiId, provinsi_tb.nama AS provinsiNama FROM kabupaten_tb INNER JOIN provinsi_tb ON provinsi_tb.id = kabupaten_tb.provinsi_id WHERE kabupaten_tb.id = ?";
+
+  const queryProvinsi =
+    "SELECT kabupaten_tb.provinsi_id AS provinsiId, provinsi_tb.nama AS provinsiNama FROM kabupaten_tb INNER JOIN provinsi_tb ON provinsi_tb.id = kabupaten_tb.provinsi_id";
 
   dbConnection.getConnection((err, conn) => {
-    if (err) {
-      throw err;
-    }
+    if (err) throw err;
 
     conn.query(query, [id], (err, results) => {
       if (err) throw err;
 
-      let diresmikanDate = results[0].diresmikan.toISOString().split("T")[0];
+      const provinsis = [];
+
+      let diresmikanSplit = results[0].diresmikan
+        .toLocaleDateString("id-ID")
+        .split("/");
+      let day = String(diresmikanSplit[0]).padStart(2, "0");
+      let month = String(diresmikanSplit[1]).padStart(2, "0");
+      let year = diresmikanSplit[2];
+      let diresmikanDate = `${year}-${month}-${day}`;
 
       const kabupaten = {
         ...results[0],
@@ -33,9 +60,21 @@ router.get("/edit/:id", function (req, res) {
         diresmikanDate,
       };
 
+      conn.query(queryProvinsi, (err, results) => {
+        if (err) throw err;
+
+        for (let result of results) {
+          provinsis.push({
+            ...result,
+          });
+        }
+      });
+      conn.release();
+
       res.render("kabupaten/form-edit", {
         title: "Form Edit Kabupaten",
         kabupaten,
+        provinsis,
       });
     });
     conn.release();

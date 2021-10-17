@@ -23,8 +23,13 @@
         </div>
 
         <div class="form-floating mb-3">
-          <input type="text" class="form-control" id="provinsi_id" name="provinsi_id" placeholder="example">
-          <label for="provinsi_id">Provinsi ID</label>
+          <select class="form-select" id="provinsi_id" aria-label="Floating label select provinsi">
+            <option selected>- Select Provinsi -</option>
+            {{#each provinsis }}              
+            <option value="{{this.provinsiId}}">{{this.provinsiNama}}</option>
+            {{/each}}
+          </select>
+          <label for="provinsi_id">Provinsi</label>
         </div>
 
         <div class="form-floating mb-3">
