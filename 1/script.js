@@ -1,4 +1,4 @@
-function calcPrice(quality, quantity) {
+function Hitungbarang(quality, quantity) {
   let price = 0;
   let discount = 0;
   let total = 0;
@@ -27,4 +27,4 @@ function calcPrice(quality, quantity) {
   console.log(string);
 }
 
-calcPrice("A", 14);
+Hitungbarang("A", 14);
